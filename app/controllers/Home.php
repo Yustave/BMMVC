@@ -1,6 +1,6 @@
 <?php
 
-class Home extends Controller{
+class Home extends Controllers{
     private $userModel;
     public function __construct()
     {

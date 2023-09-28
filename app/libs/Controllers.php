@@ -1,6 +1,6 @@
 <?php
 
-class Controller{
+class Controllers{
    public function view($views, $data = []){
     if(file_exists("../app/views/".$views.".php")){
         require_once ("../app/views/".$views.".php");
