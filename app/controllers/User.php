@@ -78,7 +78,10 @@ class User extends Controllers{
                 if($rowuser){
                     $hash_pass = $rowuser->password;
                     if (password_verify($data['pass'],$hash_pass)){
+                        $user = $rowuser->name;
+                        setUserSession($user);
                         $this->view('home/index');
+                        redirect(URLROOT."Admin/home");
                     } else {
                         $this->view('user/login');
                     }
