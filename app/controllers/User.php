@@ -2,6 +2,7 @@
 
 class User extends Controllers{
     private $userModel;
+    
     public function __construct()
     {
         $this->userModel = $this->model('UserModel');
@@ -52,8 +53,6 @@ class User extends Controllers{
         }else{
             $this->view("user/register");
         }
-       
-        
     }
 
     public function login(){
@@ -96,7 +95,7 @@ class User extends Controllers{
 
     public function logout(){
         unsetUserSession();
-        $this->view('home/index');
+        redirect(URLROOT.'home/index');
     }
 }
 

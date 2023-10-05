@@ -23,7 +23,7 @@ require_once APPROOT . "/views/inc/nav.php";
 
                 <div class="mb-3">
                     <input type="password" class="form-control <?php echo !empty($data['pass_err']) ? 'is-invalid': '' ; ?>" id="password" name="password" placeholder="Passwords" >
-                    <span class="text-danger"><?php echo !empty($data['pass']) ? $data['pass_err'] : ''; ?></span>
+                    <span class="text-danger"><?php echo !empty($data['pass_err']) ? $data['pass_err'] : ''; ?></span>
                 </div>
 
                 <div class="mb-3">

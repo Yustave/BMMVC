@@ -8,7 +8,7 @@ require_once APPROOT . "/views/inc/nav.php";
         <section class="col-md-3" style="display: inline;">
                 <ul class="list-group">
                 <?php foreach($data['cats'] as $cat) : ?>
-                    <li class="list-group-item"><a href="<?php echo URLROOT.'Catagory/edit/'.$cat->id ?>"><?php echo $cat->name?></a></li>
+                    <li class="list-group-item"><a href="<?php echo URLROOT.'Catagory/edit/'.$cat->id?>"><?php echo $cat->name?></a></li>
                 <?php endforeach; ?>  
                 </ul>   
                 <br><br>
@@ -20,7 +20,7 @@ require_once APPROOT . "/views/inc/nav.php";
         
         <section class="col-md-9" style="display: inline;">
             <div class="col-md-8 offset-md-2">
-                <h1 class="text-primary">Create Category</h1>
+                <h1 class="text-primary">Edit Category</h1>
                 <div class="card p-5">
                     <form action="<?php $this->view('Catagory/home')?>" method="post">
                     <div class="mb-3">
