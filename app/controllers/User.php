@@ -2,14 +2,17 @@
 
 class User extends Controllers{
     private $userModel;
-    
-    public function __construct()
-    {
-        $this->userModel = $this->model('UserModel');
+    private $postModel;
+    private $catModel;
+
+    public function __construct(){
+        $this->userModel = $this->model('Usermodel');
+        $this->postModel = $this->model("PostModel");
+        $this->catModel = $this->model("CategoryModel");
+
     }
 
     public function register(){
-
         if($_SERVER['REQUEST_METHOD'] == 'POST'){
             $data = [
                 "name"=> $_POST['username'],
@@ -25,14 +28,17 @@ class User extends Controllers{
             if(empty($data['name'])){
                 $data['name_err'] = "username can't be blank";
             }
+
             if(empty($data['email'])){
                 $data['email_err'] = "email can't be blank";
             }elseif($this->userModel->getUserByEmail($data['email'])){
                 $data['email_err'] = "Email is Already In Used";
             }
+
             if(empty($data['pass'])){
                 $data['pass_err'] = "password can't be blank";
             }
+            
             if(empty($data['comfrimPass'])){
                 $data['comfrimPass_err'] = "comfrimPasswrd can't be blank";
             }elseif($data['pass'] != $data['comfrimPass']){
@@ -79,8 +85,13 @@ class User extends Controllers{
                     if (password_verify($data['pass'],$hash_pass)){
                         $user = $rowuser->name;
                         setUserSession($user);
-                        $this->view('home/index');
-                        redirect(URLROOT."Admin/home");
+
+                        if($data['email'] == 'yustavelavan@gmail.com'){
+                            redirect(URLROOT."Admin/home");
+                        }else{
+                            redirect(URLROOT."detail/home/1");
+                        }
+                       
                     } else {
                         $this->view('user/login');
                     }
@@ -97,6 +108,19 @@ class User extends Controllers{
         unsetUserSession();
         redirect(URLROOT.'home/index');
     }
+
+    public function member($params=[]){
+       
+        $data = [
+            "cats"=>'',
+            "posts"=>''
+        ];
+        $data['cats']=$this->catModel->getAllCategory();
+        $data['posts']=$this->postModel->getPostByCatId($params[0]);
+        $this->view('user/member',$data);
+
+    }
+
 }
 
 ?>

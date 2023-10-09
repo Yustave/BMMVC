@@ -19,20 +19,20 @@ function unsetUserSession(){
     unset($_SESSION['currentUser']);
 }
 
-function setCateID($values){
-    if(isset($_SESSION['currentID'])){
-        unset($_SESSION['currentID']);
+function setCurrentId($value){
+    if(isset($_SESSION['curId'])){
+        unset($_SESSION['curId']);
     }
-    $_SESSION['currentID'] = $values;
+    $_SESSION['curId'] = $value;
 }
-
-function getCateID(){
-    if(isset($_SESSION['currentID'])){
-        return $_SESSION['currentID'];
+function getCurrentId(){
+    if(isset($_SESSION['curId'])){
+        return ($_SESSION['curId']);
     }
 }
-
-function unsetCateID(){
-    unset($_SESSION['currentID']);
+function deleteCurrentId(){
+    if(isset($_SESSION['curId'])){
+        unset($_SESSION['curId']);
+    }
 }
 ?>

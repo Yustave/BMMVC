@@ -4,13 +4,14 @@ class Home extends Controllers{
     private $userModel;
     public function __construct()
     {
-        $this->userModel = $this->model("UserModel");
+        $this->userModel = $this->model("CatagoryModel");
     }
-    public function index($data = [])
-    {
-        $data=$this->userModel->getALLuser();
-        $this->view('home/index',$data);
-    }
+    
+    
+    public function index($data=[]){
+        $dta=$this->userModel->getAllCategory();      
+         $this->view("home/index",$dta);
+    }     
 }
 
 ?>

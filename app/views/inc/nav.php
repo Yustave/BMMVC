@@ -13,31 +13,35 @@
                     <li class="nav-item">
                         <a class="nav-link active" href="<?php echo URLROOT."Home/index" ?>"><?php print_r(getUserSession()) ?></a>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link active" href="<?php echo URLROOT."user/logout" ?>">Logout</a>
-                    </li>
-                   
-                    
                 <?php else : ?>
                     <li class="nav-item">
-                        <a class="nav-link active" href="<?php echo URLROOT."user/register" ?>">Register</a>
+                        <a class="nav-link active" href="<?php echo URLROOT."Home/index" ?>">Member</a>
                     </li>
-                    <li class="nav-item ">
-                        <a class="nav-link active" href="<?php echo URLROOT."user/login" ?>">Login</a>
-                    </li>
-                    
-                <?php endif ; ?>
+                <?php endif;?>    
+
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#" id="navbarScrollingDropdown" role="button"
                         data-bs-toggle="dropdown" aria-expanded="false">
-                        Link
+                        Profile
                     </a>
                     <ul class="dropdown-menu" aria-labelledby="navbarScrollingDropdown">
-                        <li><a class="dropdown-item" href="#">CSGO</a></li>
-                        <li><a class="dropdown-item" href="#">VALORANT</a></li>
-                        <li><a class="dropdown-item" href="#">SUMMONOR RIFT</a></li>
+                        <?php if(getUserSession() == true) : ?>  
+                            <li class="nav-item">
+                                <a class="nav-link active" href="<?php echo URLROOT."user/logout" ?>">Logout</a>
+                            </li>
+                        <?php else : ?>
+                            <li class="nav-item">
+                                <a class="nav-link active" href="<?php echo URLROOT."user/register" ?>">Register</a>
+                            </li>
+                            <li class="nav-item ">
+                                <a class="nav-link active" href="<?php echo URLROOT."user/login" ?>">Login</a>
+                            </li>
+                        <?php endif ; ?>
                     </ul>
                 </li>
+                    
+                
+                
             </ul>
         </div>
     </div>

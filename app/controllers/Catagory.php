@@ -2,8 +2,8 @@
 
 class Catagory extends Controllers{
     private $catModel;
-    public function __construct()
-    {
+
+    public function __construct(){
         $this->catModel = $this->model('CatagoryModel');
     }
 
@@ -13,6 +13,7 @@ class Catagory extends Controllers{
             "name_err" => "",
             "cats"=>$this->catModel->getallcategory()
         ];
+
         if ($_SERVER['REQUEST_METHOD'] == "POST"){
             //$_POST = filter_input_array(INPUT_POST,FILTER_SANITIZE_STRING);
             $data['name'] = $_POST['name'];
@@ -25,7 +26,7 @@ class Catagory extends Controllers{
                 $this->view('admin/catagory/home',$data);
             }else if($this->catModel->insertNewCategory($data['name'])){
                 $data['cats']=$this->catModel->getallcategory();
-                $this->view('admin/category/home',$data);   
+                $this->view('admin/catagory/home',$data);   
             }
                 $this->view('admin/catagory/home',$data);
         }else{
@@ -33,16 +34,45 @@ class Catagory extends Controllers{
         }
     }
 
-    public function edit($data = []){
-        $data = [
-            "name" => "",
-            "name_err" => "",
-            "cats"=>$this->catModel->getallcategory()
+    public function edit($data=[]){
+        $dta =[
+            "name"=>"",
+            "name_err"=>"",
+            "cats"=>"",
+            "currentCat"=>""
         ];
-        if ($_SERVER['REQUEST_METHOD'] == "POST"){
-            
+
+        $dta['cats']=$this->catModel->getAllCategory();
+        if($_SERVER['REQUEST_METHOD'] == "POST"){
+
+            $dta['name']=$_POST['name'];
+            if(!empty($dta['name'])){
+                if($this->catModel->updateCategory(getCurrentId(),$dta['name'])){
+                    deleteCurrentId();
+                    redirect(URLROOT . 'catagory/create');
+                }else{
+                    $dta['currentCat']=$this->catModel->getCategoryById(getCurrentId());
+                    deleteCurrentId();
+                    redirect(URLROOT,"admin/catagory/edit",$dta);
+                }              
+            }else{
+                $dta['name_err']="please insert category name";
+                $dta['currentCat']=$this->catModel->getCategoryById(getCurrentId());
+                deleteCurrentId();
+                $this->view("admin/catagory/edit",$dta);
+            }
         }else{
-            $this->view('admin/catagory/edit',$data);
+            setCurrentId($data[0]);
+            $dta['currentCat']=$this->catModel->getCategoryById($data[0]);
+            $this->view("admin/catagory/edit",$dta);
+        }
+    }
+
+    public function delete($data=[]){
+        if($this->catModel->deleteCats($data[0])){
+            redirect( URLROOT . "catagory/create");
+        }else{
+            redirect( URLROOT . "catagory/create");
         }
     }
 }
